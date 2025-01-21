@@ -1,42 +1,75 @@
 import { Component } from '@angular/core';
-import { CardService } from '../services/card.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-deck-editor',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './deck-editor.component.html',
   styleUrls: ['./deck-editor.component.css'],
 })
 export class DeckEditorComponent {
-  searchQuery: string = '';
-  searchResults: any[] = [];
-  isLoading: boolean = false;
-  error: string | null = null;
+  allCards: any[] = []; // Cards fetched from the API
+  deck: any[] = []; // Cards added to the user's deck
+  searchTerm: string = ''; // Search input value
+  loading: boolean = false; // Loading indicator
+  error: string | null = null; // Error message
 
-  constructor(private cardService: CardService) {}
+  constructor(private http: HttpClient) {}
 
-  searchCards() {
-    if (!this.searchQuery.trim()) {
+  searchCards(): void {
+    if (!this.searchTerm.trim()) {
       this.error = 'Please enter a search term.';
-      this.searchResults = [];
       return;
     }
 
-    this.isLoading = true;
+    this.loading = true;
     this.error = null;
 
-    this.cardService.searchCards(this.searchQuery).subscribe(
-      (response: any) => {
-        this.isLoading = false;
-        this.searchResults = response.data || [];
-        if (this.searchResults.length === 0) {
+    const apiUrl = `https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=${encodeURIComponent(
+      this.searchTerm
+    )}`;
+
+    this.http.get<any>(apiUrl).subscribe({
+      next: (response) => {
+        if (response && response.data) {
+          this.allCards = response.data.map((card: any) => ({
+            id: card.id,
+            name: card.name,
+            imageUrl: card.card_images[0]?.image_url || 'https://via.placeholder.com/150',
+          }));
+        } else {
+          this.allCards = [];
           this.error = 'No cards found.';
         }
+        this.loading = false;
       },
-      (err) => {
-        this.isLoading = false;
-        this.error = 'An error occurred while fetching card data.';
+      error: (err) => {
+        this.loading = false;
+        this.error = 'An error occurred while fetching cards.';
         console.error(err);
-      }
-    );
+      },
+    });
+  }
+
+  errorMessage: string = '';
+
+addToDeck(card: any): void {
+  const cardCount = this.deck.filter((c) => c.id === card.id).length;
+
+  if (cardCount < 3) {
+    this.deck.push(card);
+    this.errorMessage = ''; // Clear the error message if the card is added
+  } else {
+    this.errorMessage = `You can only add "${card.name}" up to 3 times.`;
+  }
+}
+
+  
+
+  removeFromDeck(card: any): void {
+    this.deck = this.deck.filter((c) => c.id !== card.id);
   }
 }
