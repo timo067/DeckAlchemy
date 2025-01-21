@@ -1,1 +1,26 @@
-<p>deck-editor works!</p>
+<div class="deck-editor-container">
+  <h1>Search Yu-Gi-Oh Cards</h1>
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    placeholder="Enter card name"
+  />
+  <button (click)="searchCards()">Search</button>
+  
+  <!-- Loading Indicator -->
+  <p *ngIf="isLoading">Loading...</p>
+
+  <!-- Error Message -->
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <!-- Search Results -->
+  <div *ngIf="searchResults.length > 0">
+    <h3>Search Results:</h3>
+    <ul>
+      <li *ngFor="let card of searchResults">
+        <p>{{ card.name }}</p>
+        <img [src]="card.card_images[0].image_url" alt="{{ card.name }}" />
+      </li>
+    </ul>
+  </div>
+</div>
