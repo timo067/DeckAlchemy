@@ -8,7 +8,7 @@ import { LoginComponent } from './app/login/login.component';
 import { importProvidersFrom } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';  // Ensure FormsModule is imported here
-import { HttpClientModule } from '@angular/common/http';  // Ensure HttpClientModule is imported here
+import { provideHttpClient } from '@angular/common/http';  // Ensure HttpClientModule is imported here
 
 const routes = [
   { path: '', component: LoginComponent },
@@ -20,6 +20,7 @@ const routes = [
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(CommonModule, RouterModule, FormsModule, HttpClientModule) // Ensure FormsModule is included here
+    importProvidersFrom(CommonModule, RouterModule, FormsModule),
+    provideHttpClient()
   ]
 }).catch(err => console.error(err));

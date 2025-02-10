@@ -1,13 +1,17 @@
 */
-body {
-  font-family: Arial, sans-serif;
-  background: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+html, body {
   margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 
 .login-container {
   background: #fff;

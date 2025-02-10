@@ -3,6 +3,26 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
+interface Card {
+  id: number;
+  name: string;
+  imageUrl: string;
+  type: string;
+  desc: string;
+  atk?: number;
+  def?: number;
+  level?: number;
+  race: string;
+  linkval?: number;
+  scale?: number;
+  archetype?: string;
+}
+
+interface Deck {
+  name: string;
+  cards: Card[];
+}
+
 @Component({
   selector: 'app-deck-editor',
   standalone: true,
@@ -11,15 +31,42 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./deck-editor.component.css'],
 })
 export class DeckEditorComponent {
-  allCards: any[] = []; // Cards fetched from the API
-  deck: any[] = []; // Cards added to the user's deck
-  searchTerm: string = ''; // Search input value
-  loading: boolean = false; // Loading indicator
-  error: string | null = null; // Error message
+  decks: Deck[] = [];
+  selectedDeck: Deck | null = null;
+  allCards: Card[] = [];
+  searchTerm: string = '';
+  loading: boolean = false;
+  error: string | null = null;
+  errorMessage: string = '';
+  newDeckName: string = '';
 
   constructor(private http: HttpClient) {}
 
+  createDeck(): void {
+    if (!this.newDeckName.trim()) {
+      alert('Please enter a deck name.');
+      return;
+    }
+    const newDeck: Deck = { name: this.newDeckName, cards: [] };
+    this.decks.push(newDeck);
+    this.selectedDeck = newDeck;
+    this.newDeckName = '';
+  }
+
+  selectDeck(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    const selectedIndex = target.selectedIndex;
+    if (selectedIndex !== -1) {
+      this.selectedDeck = this.decks[selectedIndex];
+      this.allCards = [];
+    }
+  }
+
   searchCards(): void {
+    if (!this.selectedDeck) {
+      alert('Please select or create a deck first.');
+      return;
+    }
     if (!this.searchTerm.trim()) {
       this.error = 'Please enter a search term.';
       return;
@@ -39,6 +86,15 @@ export class DeckEditorComponent {
             id: card.id,
             name: card.name,
             imageUrl: card.card_images[0]?.image_url || 'https://via.placeholder.com/150',
+            type: card.type,
+            desc: card.desc,
+            atk: card.atk,
+            def: card.def,
+            level: card.level,
+            race: card.race,
+            linkval: card.linkval,
+            scale: card.scale,
+            archetype: card.archetype,
           }));
         } else {
           this.allCards = [];
@@ -54,22 +110,23 @@ export class DeckEditorComponent {
     });
   }
 
-  errorMessage: string = '';
-
-addToDeck(card: any): void {
-  const cardCount = this.deck.filter((c) => c.id === card.id).length;
-
-  if (cardCount < 3) {
-    this.deck.push(card);
-    this.errorMessage = ''; // Clear the error message if the card is added
-  } else {
-    this.errorMessage = `You can only add "${card.name}" up to 3 times.`;
+  addToDeck(card: Card): void {
+    if (!this.selectedDeck) {
+      alert('Please select a deck first.');
+      return;
+    }
+    const cardCount = this.selectedDeck.cards.filter((c: Card) => c.id === card.id).length;
+    if (cardCount < 3) {
+      this.selectedDeck.cards.push(card);
+      this.errorMessage = '';
+    } else {
+      this.errorMessage = `You can only add "${card.name}" up to 3 times.`;
+    }
   }
-}
 
-  
-
-  removeFromDeck(card: any): void {
-    this.deck = this.deck.filter((c) => c.id !== card.id);
+  removeFromDeck(card: Card): void {
+    if (this.selectedDeck) {
+      this.selectedDeck.cards = this.selectedDeck.cards.filter((c: Card) => c.id !== card.id);
+    }
   }
 }
