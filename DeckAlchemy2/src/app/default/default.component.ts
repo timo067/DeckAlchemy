@@ -19,4 +19,8 @@ export class DefaultComponent {
   navigateToSimilarGame() {
     this.router.navigate(['/similar-game']);
   }
+
+  navigateToCardSearch() {
+    this.router.navigate(['/card-search']);
+  }
 }

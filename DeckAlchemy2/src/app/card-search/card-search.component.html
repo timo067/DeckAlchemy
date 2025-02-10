@@ -1,0 +1,32 @@
+<div class="card-search-container">
+  <h2>Yu-Gi-Oh! Card Search</h2>
+
+  <div class="search-box">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Enter card name..."
+      (keyup.enter)="searchCards()"
+    />
+    <button (click)="searchCards()">Search</button>
+  </div>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div *ngIf="allCards.length > 0" class="card-results">
+    <div *ngFor="let card of allCards" class="card">
+      <img [src]="card.imageUrl" [alt]="card.name" />
+      <h3>{{ card.name }}</h3>
+      <p><strong>Type:</strong> {{ card.type }}</p>
+      <p><strong>Race:</strong> {{ card.race }}</p>
+      <p *ngIf="card.archetype"><strong>Archetype:</strong> {{ card.archetype }}</p>
+      <p>{{ card.desc }}</p>
+      <p *ngIf="card.atk !== undefined"><strong>ATK:</strong> {{ card.atk }}</p>
+      <p *ngIf="card.def !== undefined"><strong>DEF:</strong> {{ card.def }}</p>
+      <p *ngIf="card.level"><strong>Level:</strong> {{ card.level }}</p>
+      <p *ngIf="card.scale"><strong>Scale:</strong> {{ card.scale }}</p>
+    </div>
+  </div>
+</div>
