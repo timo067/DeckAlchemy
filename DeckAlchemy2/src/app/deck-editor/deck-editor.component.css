@@ -1,134 +1,352 @@
-/* General container styles */
-.deck-editor-container {
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
-  margin: 0;
-  padding: 20px;
-  box-sizing: border-box;
-  overflow-y: auto; /* Enables vertical scrolling */
-  background-image: url('/DeckAlchemy2/Images/images\ \(1\).jpg'); /* Background image */
+/* === GLOBAL STYLES === */
+body, html {
+  font-family: 'Cinzel', serif; /* Adds an ancient magical touch */
+  background: url('https://wallpapers.com/images/hd/yu-gi-oh-dark-magician-ancient-scrolls-51bn8o82puqlfyo6.jpg') no-repeat center center fixed;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 0; /* Remove rounded corners for full-screen */
-  box-shadow: none; /* Remove shadow */
+  color: #FFD700; /* Gold text */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Align content to the top */
+  justify-content: center;
   align-items: center;
 }
 
-/* All Cards Section */
-.all-cards,
-.deck {
+/* === DUEL ARENA FULL SCREEN CONTAINER === */
+.deck-editor-container {
+  width: 100vw; /* Full screen width */
+  height: 100vh; /* Full screen height */
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto; /* Enables vertical scrolling */
+  background: rgba(20, 20, 20, 0.95); /* Darkened overlay for depth */
+  border: 3px solid #FFD700; /* Gold border */
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); /* Glowing golden edges */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* === CARD SECTIONS === */
+.all-cards, .deck {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
   margin-top: 20px;
-  max-height: 400px; /* Limit the height of the card sections */
-  overflow-y: auto; /* Enable scrolling for the card sections */
-  border: 1px solid black;
-  padding: 10px;
+  max-height: 500px; /* Increases visibility */
+  overflow-y: auto;
+  border: 2px solid #FFD700; /* Gold border */
+  padding: 15px;
   border-radius: 8px; 
-  background-color: #f9f9f9; /* Optional: light background for better visibility */
+  background: rgba(0, 0, 0, 0.8); /* Semi-transparent dark background */
 }
 
-/* Card Styles */
+/* === CARD STYLING === */
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin: 0 auto;
-  border: 1px solid #ddd;
+  border: 2px solid #FFD700;
   border-radius: 8px;
-  padding: 40px;
-  padding-bottom: 5px;
-  padding-top: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 150px;
+  padding: 15px;
+  width: 180px;
   overflow: hidden;
-  background-color: #fff;
+  background: rgba(30, 30, 30, 0.95);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .card img {
-  width: 200px;
+  width: 160px;
   height: auto;
-  margin-bottom: 1px;
+  margin-bottom: 5px;
   border-radius: 4px;
+  border: 2px solid #FFD700;
 }
 
 .card h3 {
   font-size: 20px;
+  color: #FFD700;
   margin: 5px 0;
 }
 
+/* === CARD BUTTON === */
 .card button {
-  padding: 5px 10px;
-  font-size: 12px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  background: linear-gradient(45deg, #8B0000, #FF4500);
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .card button:hover {
-  background-color: #218838;
+  background: linear-gradient(45deg, #FF4500, #FFD700);
+  transform: scale(1.1);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .card {
-    width: 120px;
-  }
-
-  .card img {
-    width: 80px;
-  }
-}
+/* === ENHANCED SEARCH BAR === */
 .search-bar {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
+/* Input field */
 .search-bar input {
-  padding: 10px;
-  width: 300px;
-  font-size: 16px;
-  border: 2px solid #007bff; /* Blue border */
+  padding: 12px;
+  width: 350px;
+  font-size: 18px;
+  border: 2px solid #FFD700;
   border-radius: 8px;
   outline: none;
+  background: rgba(0, 0, 0, 0.9);
+  color: #FFD700;
+  font-weight: bold;
+  text-transform: uppercase;
   transition: all 0.3s ease-in-out;
+  box-shadow: inset 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
 .search-bar input:focus {
-  border-color: #0056b3; /* Darker blue when focused */
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Blue glow */
+  border-color: #FF4500;
+  box-shadow: 0 0 15px rgba(255, 69, 0, 0.8);
 }
 
+/* Search Button */
 .search-bar button {
-  padding: 10px 15px;
+  padding: 12px 18px;
   font-size: 16px;
-  color: white;
-  background-color: #007bff;
-  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #FFD700;
+  background: linear-gradient(45deg, #8B0000, #FF4500);
+  border: 3px solid #FFD700;
   border-radius: 8px;
-  margin-left: 10px; /* Adds space between input and button */
+  margin-left: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out, box-shadow 0.3s;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
 }
 
 .search-bar button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+  background: linear-gradient(45deg, #FF4500, #FFD700);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 69, 0, 0.9);
 }
 
 .search-bar button:active {
-  background-color: #003f7f; /* Even darker blue on click */
-  transform: scale(0.95); /* Slight shrink effect */
+  background: linear-gradient(45deg, #FFD700, #FF4500);
+  transform: scale(0.95);
+  box-shadow: 0 0 20px rgba(255, 165, 0, 1);
+}
+
+
+/* === FADE-IN EFFECT === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .card {
+    width: 140px;
+  }
+
+  .card img {
+    width: 120px;
+  }
+}
+
+/* === DECK NAME INPUT & SEARCH BAR (Updated for Consistency) === */
+.deck-creation input,
+.search-bar input {
+  padding: 12px;
+  width: 350px;
+  font-size: 18px;
+  border: 2px solid #FFD700;
+  border-radius: 8px;
+  outline: none;
+  background: rgba(30, 30, 30, 0.95);
+  color: #FFD700;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+.deck-creation input:focus,
+.search-bar input:focus {
+  border-color: #FF4500;
+  box-shadow: 0 0 15px rgba(255, 69, 0, 0.9);
+  transform: scale(1.05);
+}
+
+/* === CREATE DECK & SEARCH BUTTONS === */
+.deck-creation button,
+.search-bar button {
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #FFD700;
+  background: linear-gradient(45deg, #8B0000, #FF4500);
+  border: 3px solid #FFD700;
+  border-radius: 8px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+  box-shadow: 0 0 15px rgba(255, 69, 0, 0.7);
+}
+
+.deck-creation button:hover,
+.search-bar button:hover {
+  background: linear-gradient(45deg, #FF4500, #FFD700);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 69, 0, 1);
+}
+
+.deck-creation button:active,
+.search-bar button:active {
+  background: linear-gradient(45deg, #FFD700, #FF4500);
+  transform: scale(0.95);
+  box-shadow: 0 0 25px rgba(255, 165, 0, 1);
+}
+
+/* === DECK CREATION SECTION === */
+.deck-creation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  background: rgba(0, 0, 0, 0.8); /* Darkened background for consistency */
+  padding: 15px;
+  border-radius: 12px;
+  border: 2px solid #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); /* Glowing golden edges */
+  transition: all 0.3s ease-in-out;
+  width: fit-content;
+  margin: auto;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .deck-creation {
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .deck-creation input {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .deck-creation button {
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+
+/* === SELECT A DECK DROPDOWN === */
+select {
+  padding: 12px;
+  width: 350px;
+  font-size: 18px;
+  border: 2px solid #FFD700;
+  border-radius: 8px;
+  outline: none;
+  background: rgba(30, 30, 30, 0.95);
+  color: #FFD700;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.7);
+  appearance: none; /* Removes default arrow (for better styling) */
+  cursor: pointer;
+}
+
+/* Hover & Focus Effects */
+select:hover,
+select:focus {
+  border-color: #FF4500;
+  box-shadow: 0 0 15px rgba(255, 69, 0, 0.9);
+  transform: scale(1.05);
+}
+
+/* Dropdown Arrow Styling */
+select::-ms-expand {
+  display: none; /* Hides arrow in IE */
+}
+
+select option {
+  background: rgba(30, 30, 30, 0.95);
+  color: #FFD700;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 8px;
+}
+
+/* === SELECT A DECK SECTION === */
+.deck-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  border-radius: 12px;
+  border: 2px solid #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  transition: all 0.3s ease-in-out;
+  width: fit-content;
+  margin: auto;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  select {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .deck-selection {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+h2,h1{
+  color: white;
 }
 

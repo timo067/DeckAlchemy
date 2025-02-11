@@ -1,39 +1,87 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f0f0f0;
+/* Global styling */
+body, html {
+  font-family: 'Cinzel', serif; /* Elegant Yu-Gi-Oh! style font */
+  background: url('https://wallpapers.com/images/hd/yu-gi-oh-dark-magician-ancient-scrolls-51bn8o82puqlfyo6.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #FFD700; /* Gold text */
   margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
+/* Duel field container - Full Screen */
 .default-container {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  background: rgba(20, 20, 20, 0.9); /* Dark semi-transparent */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); /* Golden glow */
+  border: 3px solid #FFD700; /* Gold border */
+  animation: fadeIn 0.5s ease-in-out;
 }
 
+/* Logs section */
 .logs {
   margin: 20px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #FFF;
 }
 
+/* Buttons section */
 .buttons {
   margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
+/* Duel-style button */
 button {
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #8B0000, #FF4500); /* Dark red to fiery orange */
+  color: #FFD700;
+  border: 2px solid #FFD700;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background: linear-gradient(45deg, #FF4500, #FFD700); /* Fiery effect */
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+}
+
+/* Fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .default-container {
+    padding: 20px;
+  }
+  
+  button {
+    width: 100%;
+  }
 }
