@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router'; // Import Router
 
 interface Card {
   id: number;
@@ -41,7 +42,7 @@ export class CardSearchComponent {
     archetype: ''
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   searchCards(): void {
     if (!this.searchTerm.trim()) {
@@ -111,5 +112,15 @@ export class CardSearchComponent {
 
   toggleCardDetails(card: Card): void {
     card.showDetails = !card.showDetails;
+  }
+
+   // Go to home page
+   goHome(): void {
+    this.router.navigate(['/']);
+  }
+
+  // Go to card search page
+  goToDeckEditor(): void {
+    this.router.navigate(['/deck-editor']);
   }
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router'; // Import Router
 
 interface Card {
   id: number;
@@ -31,8 +32,9 @@ export class DeckEditorComponent {
   errorMessage: string = '';
   newDeckName: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
+  // Create a new deck
   createDeck(): void {
     if (!this.newDeckName.trim()) {
       alert('Please enter a deck name.');
@@ -45,6 +47,7 @@ export class DeckEditorComponent {
     this.newDeckName = '';
   }
 
+  // Select a deck
   selectDeck(event: Event): void {
     const target = event.target as HTMLSelectElement;
     const selectedIndex = target.selectedIndex;
@@ -53,9 +56,9 @@ export class DeckEditorComponent {
       this.selectedDeck = this.decks[selectedIndex];
       this.allCards = [];
     }
-  }  
-  
+  }
 
+  // Search for cards
   searchCards(): void {
     if (!this.selectedDeck) {
       alert('Please select or create a deck first.');
@@ -96,6 +99,7 @@ export class DeckEditorComponent {
     });
   }
 
+  // Add card to the selected deck
   addToDeck(card: Card): void {
     if (!this.selectedDeck) {
       alert('Please select a deck first.');
@@ -112,9 +116,34 @@ export class DeckEditorComponent {
     }
   }
 
+  // Remove card from deck
   removeFromDeck(card: Card): void {
     if (this.selectedDeck) {
       this.selectedDeck.cards = this.selectedDeck.cards.filter((c: Card) => c.id !== card.id);
     }
+  }
+
+  // Delete deck
+  deleteDeck(deck: Deck): void {
+    const index = this.decks.indexOf(deck);
+    if (index !== -1) {
+      this.decks.splice(index, 1);
+      
+      // If the deleted deck was the selected one, clear the selection
+      if (this.selectedDeck === deck) {
+        this.selectedDeck = null;
+        this.allCards = [];
+      }
+    }
+  }
+
+  // Go to home page
+  goHome(): void {
+    this.router.navigate(['/']);
+  }
+
+  // Go to card search page
+  goToCardSearch(): void {
+    this.router.navigate(['/card-search']);
   }
 }

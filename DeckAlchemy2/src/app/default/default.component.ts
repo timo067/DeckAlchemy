@@ -23,4 +23,8 @@ export class DefaultComponent {
   navigateToCardSearch() {
     this.router.navigate(['/card-search']);
   }
+
+  navigateToLogin() {
+    this.router.navigate(['/']);
+  }
 }

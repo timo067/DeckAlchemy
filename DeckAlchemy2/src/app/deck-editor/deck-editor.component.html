@@ -1,60 +1,51 @@
-  <div class="deck-editor-container">
-    <h1>Deck Editor</h1>
+<div class="deck-editor-container">
+  <!-- Home Button -->
+  <button class="home-button" (click)="goHome()">Home</button>
+  <!-- Card Search Button -->
+  <button class="card-search-button" (click)="goToCardSearch()">Go to Card Search</button>
 
-    <!-- Create a New Deck -->
-    <div class="deck-creation">
-      <h2>Create a Deck</h2>
-      <input type="text" placeholder="Enter deck name..." [(ngModel)]="newDeckName" />
-      <button (click)="createDeck()">Create Deck</button>
+  <h1>Deck Editor</h1>
+
+  <!-- Create a New Deck -->
+  <div class="deck-creation">
+    <h2>Create a Deck</h2>
+    <input type="text" placeholder="Enter deck name..." [(ngModel)]="newDeckName" />
+    <button (click)="createDeck()">Create Deck</button>
+  </div>
+
+  <!-- Select a Deck -->
+  <div *ngIf="decks.length > 0">
+    <h2>Select a Deck</h2>
+    <ul>
+      <li *ngFor="let deck of decks">
+        <span (click)="selectedDeck = deck">{{ deck.name }}</span>
+        <button class="delete-deck-button" (click)="deleteDeck(deck)">Delete</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Search Cards -->
+  <div *ngIf="selectedDeck">
+    <h2>Search your card</h2>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for a card..." [(ngModel)]="searchTerm" />
+      <button (click)="searchCards()">Search</button>
     </div>
 
-    <!-- Select a Deck -->
-    <div *ngIf="decks.length > 0">
-      <h2>Select a Deck</h2>
-      <select (change)="selectDeck($event)">
-        <option *ngFor="let deck of decks" [selected]="deck === selectedDeck">
-          {{ deck.name }}
-        </option>
-      </select>
-      
-    </div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+    <div *ngIf="loading" class="loading">Loading...</div>
 
-    <!-- Search Cards (Only if a deck is selected) -->
-    <div *ngIf="selectedDeck">
-      <h2>Search your card</h2>
-
-      <div class="search-bar">
-        <input type="text" placeholder="Search for a card..." [(ngModel)]="searchTerm" />
-        <button (click)="searchCards()">Search</button>
+    <!-- All Cards -->
+    <div class="all-cards">
+      <h2>All Cards</h2>
+      <div *ngIf="allCards.length === 0 && !loading && !error">
+        No cards available. Use the search bar to find cards.
       </div>
-
-      <div *ngIf="error" class="error-message">{{ error }}</div>
-      <div *ngIf="loading" class="loading">Loading...</div>
-
-      <!-- All Cards -->
-      <div class="all-cards">
-        <h2>All Cards</h2>
-        <div *ngIf="allCards.length === 0 && !loading && !error">
-          No cards available. Use the search bar to find cards.
-        </div>
-        <div *ngFor="let card of allCards" class="card">
-          <img [src]="card.imageUrl" alt="{{ card.name }}" />
-          <h3>{{ card.name }}</h3>
-          <button (click)="addToDeck(card)">Add to Deck</button>
-        </div>
+      <div *ngFor="let card of allCards" class="card">
+        <img [src]="card.imageUrl" alt="{{ card.name }}" />
+        <h3>{{ card.name }}</h3>
+        <button (click)="addToDeck(card)">Add to Deck</button>
       </div>
-
-      <!-- Your Selected Deck -->
-      <div class="deck">
-        <h2>Your Deck: {{ selectedDeck.name }}</h2>
-        <div *ngIf="selectedDeck.cards.length === 0">Your deck is empty.</div>
-        <div *ngFor="let card of selectedDeck.cards" class="card">
-          <img [src]="card.imageUrl" alt="{{ card.name }}" />
-          <h3>{{ card.name }}</h3>
-          <button (click)="removeFromDeck(card)">Remove</button>
-        </div>
-      </div>
-
-      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     </div>
   </div>
+</div>
