@@ -368,3 +368,58 @@ li{
   font-weight: bold;
   font-size:20px;
 }
+
+/* Home and Card Search Buttons Wrapper */
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Adjust the space between the buttons */
+  margin-bottom: 20px;
+}
+
+/* Home Button */
+.home-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFD700;
+  background: linear-gradient(45deg, #8B0000, #FF4500);
+  border: 2px solid #FFD700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.home-button:hover {
+  background: linear-gradient(45deg, #FF4500, #FFD700);
+  transform: scale(1.1);
+}
+
+.home-button:active {
+  background: linear-gradient(45deg, #FFD700, #FF4500);
+  transform: scale(0.95);
+}
+
+/* Card Search Button */
+.card-search-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFD700;
+  background: linear-gradient(45deg, #8B0000, #FF4500);
+  border: 2px solid #FFD700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.card-search-button:hover {
+  background: linear-gradient(45deg, #FF4500, #FFD700);
+  transform: scale(1.1);
+}
+
+.card-search-button:active {
+  background: linear-gradient(45deg, #FFD700, #FF4500);
+  transform: scale(0.95);
+}
