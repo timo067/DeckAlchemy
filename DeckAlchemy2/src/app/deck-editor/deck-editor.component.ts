@@ -139,7 +139,7 @@ export class DeckEditorComponent {
 
   // Go to home page
   goHome(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/default']);
   }
 
   // Go to card search page
