@@ -1,89 +1,100 @@
 .card-search-container {
-  width: 100%; /* Make the container take up the full width */
-  height: 100%; /* Make the container take up the full height */
-  padding: 20px;
-  text-align: center;
-  background-color: #1e1e2e;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  color: white;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #1e1e2e;
+  color: white;
+  overflow: hidden;
 }
 
 h2 {
   margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.search-box {
+/* 🔍 Search & Filter Section */
+.search-box,
+.filter-box {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  width: 100%;
+  max-width: 900px;
+  padding: 10px;
+  background: #2a2b3a;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   margin-bottom: 15px;
 }
 
-.search-box input {
+.search-box input,
+.filter-box input {
   padding: 10px;
-  width: 60%;
-  max-width: 500px; /* Limit the maximum width */
+  width: 160px;
   border: 2px solid #ffcc00;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
+  background-color: #1e1e2e;
+  color: white;
 }
 
-.search-box button {
+.search-box button,
+.filter-box button {
   padding: 10px 15px;
   background-color: #ffcc00;
   color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   transition: background 0.3s ease;
 }
 
-.search-box button:hover {
+.search-box button:hover,
+.filter-box button:hover {
   background-color: #e6b800;
 }
 
-.error {
-  color: #ff5555;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.loading {
-  font-size: 18px;
-  font-weight: bold;
-  color: #ffcc00;
-}
-
+/* 🃏 Card Display */
 .card-results {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 15px;
-  margin-top: 15px;
+  width: 100%;
+  padding: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 .card {
   background: #282a36;
   padding: 15px;
-  border-radius: 8px;
-  width: 220px;
+  border-radius: 10px;
   text-align: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .card img {
   width: 100%;
+  max-width: 240px;
+  height: auto;
   border-radius: 5px;
 }
 
 .card h3 {
   margin: 10px 0;
   font-size: 18px;
+  font-weight: bold;
 }
 
 .card p {
@@ -91,14 +102,53 @@ h2 {
   margin: 5px 0;
 }
 
-/* Make the component take up the full screen */
+/* 🖥️ Fullscreen Styling */
 :host {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
-  background-color: #121212; /* Dark background for a game-like feel */
-  color: white; /* White text for better visibility */
-  overflow: hidden; /* Prevent scrolling */
+  height: 100vh;
+  width: 100vw;
+  background-color: #121212;
+  color: white;
+  overflow: hidden;
 }
+
+
+.filter-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #2a2b3a;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.filter-box input {
+  padding: 8px;
+  width: 150px;
+  border: 2px solid #ffcc00;
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #1e1e2e;  
+  color: white;
+}
+
+.filter-box button {
+  padding: 8px 15px;
+  background-color: #ffcc00;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.filter-box button:hover {
+  background-color: #e6b800;
+}
+

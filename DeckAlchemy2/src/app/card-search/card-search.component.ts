@@ -16,6 +16,7 @@ interface Card {
   linkval?: number;
   scale?: number;
   archetype?: string;
+  showDetails?: boolean; // New property to track toggle state
 }
 
 @Component({
@@ -27,9 +28,18 @@ interface Card {
 })
 export class CardSearchComponent {
   allCards: Card[] = [];
+  filteredCards: Card[] = [];
   searchTerm: string = '';
   loading: boolean = false;
   error: string | null = null;
+  filters = {
+    atk: null as number | null,
+    def: null as number | null,
+    level: null as number | null,
+    type: '',
+    race: '',
+    archetype: ''
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -59,7 +69,9 @@ export class CardSearchComponent {
             race: card.race,
             scale: card.scale,
             archetype: card.archetype,
+            showDetails: false, // Initialize showDetails as false
           }));
+          this.applyFilters();
         } else {
           this.allCards = [];
           this.error = 'No cards found.';
@@ -72,5 +84,32 @@ export class CardSearchComponent {
         console.error(err);
       },
     });
+  }
+
+  applyFilters(): void {
+    this.filteredCards = this.allCards.filter(card => 
+      (this.filters.atk === null || (card.atk && card.atk >= this.filters.atk)) &&
+      (this.filters.def === null || (card.def && card.def >= this.filters.def)) &&
+      (this.filters.level === null || (card.level && card.level === this.filters.level)) &&
+      (this.filters.type === '' || card.type.toLowerCase().includes(this.filters.type.toLowerCase())) &&
+      (this.filters.race === '' || card.race.toLowerCase().includes(this.filters.race.toLowerCase())) &&
+      (this.filters.archetype === '' || (card.archetype && card.archetype.toLowerCase().includes(this.filters.archetype.toLowerCase())))
+    );
+  }
+
+  resetFilters(): void {
+    this.filters = {
+      atk: null,
+      def: null,
+      level: null,
+      type: '',
+      race: '',
+      archetype: ''
+    };
+    this.applyFilters();
+  }
+
+  toggleCardDetails(card: Card): void {
+    card.showDetails = !card.showDetails;
   }
 }

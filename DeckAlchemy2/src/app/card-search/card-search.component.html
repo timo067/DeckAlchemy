@@ -11,22 +11,35 @@
     <button (click)="searchCards()">Search</button>
   </div>
 
-  <p *ngIf="error" class="error">{{ error }}</p>
+  <!-- Filter Options -->
+  <div class="filter-box">
+    <input type="number" [(ngModel)]="filters.atk" placeholder="Min ATK" />
+    <input type="number" [(ngModel)]="filters.def" placeholder="Min DEF" />
+    <input type="number" [(ngModel)]="filters.level" placeholder="Level" />
+    <input type="text" [(ngModel)]="filters.type" placeholder="Type" />
+    <input type="text" [(ngModel)]="filters.race" placeholder="Race" />
+    <input type="text" [(ngModel)]="filters.archetype" placeholder="Archetype" />
+    <button (click)="applyFilters()">Apply Filters</button>
+    <button (click)="resetFilters()">Reset</button>
+  </div>
 
+  <p *ngIf="error" class="error">{{ error }}</p>
   <div *ngIf="loading" class="loading">Loading...</div>
 
-  <div *ngIf="allCards.length > 0" class="card-results">
-    <div *ngFor="let card of allCards" class="card">
+  <div *ngIf="filteredCards.length > 0" class="card-results">
+    <div *ngFor="let card of filteredCards" class="card" (click)="toggleCardDetails(card)">
       <img [src]="card.imageUrl" [alt]="card.name" />
       <h3>{{ card.name }}</h3>
-      <p><strong>Type:</strong> {{ card.type }}</p>
-      <p><strong>Race:</strong> {{ card.race }}</p>
-      <p *ngIf="card.archetype"><strong>Archetype:</strong> {{ card.archetype }}</p>
-      <p>{{ card.desc }}</p>
-      <p *ngIf="card.atk !== undefined"><strong>ATK:</strong> {{ card.atk }}</p>
-      <p *ngIf="card.def !== undefined"><strong>DEF:</strong> {{ card.def }}</p>
-      <p *ngIf="card.level"><strong>Level:</strong> {{ card.level }}</p>
-      <p *ngIf="card.scale"><strong>Scale:</strong> {{ card.scale }}</p>
+      <div *ngIf="card.showDetails" class="card-details">
+        <p><strong>Type:</strong> {{ card.type }}</p>
+        <p><strong>Race:</strong> {{ card.race }}</p>
+        <p *ngIf="card.archetype"><strong>Archetype:</strong> {{ card.archetype }}</p>
+        <p>{{ card.desc }}</p>
+        <p *ngIf="card.atk !== undefined"><strong>ATK:</strong> {{ card.atk }}</p>
+        <p *ngIf="card.def !== undefined"><strong>DEF:</strong> {{ card.def }}</p>
+        <p *ngIf="card.level"><strong>Level:</strong> {{ card.level }}</p>
+        <p *ngIf="card.scale"><strong>Scale:</strong> {{ card.scale }}</p>
+      </div>
     </div>
   </div>
 </div>
