@@ -48,14 +48,9 @@ export class DeckEditorComponent {
   }
 
   // Select a deck
-  selectDeck(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    const selectedIndex = target.selectedIndex;
-    
-    if (selectedIndex !== -1) {
-      this.selectedDeck = this.decks[selectedIndex];
-      this.allCards = [];
-    }
+  selectDeckFromList(deck: Deck): void {
+    this.selectedDeck = deck;
+    this.allCards = [];  // Reset cards when changing deck
   }
 
   // Search for cards
@@ -105,16 +100,23 @@ export class DeckEditorComponent {
       alert('Please select a deck first.');
       return;
     }
-
+  
     const cardCount = this.selectedDeck.cards.filter((c: Card) => c.id === card.id).length;
-
+  
+    console.log('Selected Deck:', this.selectedDeck);
+    console.log('Card to add:', card);
+    console.log('Current card count in deck:', cardCount);
+  
     if (cardCount < 3) {
       this.selectedDeck.cards.push(card);
       this.errorMessage = '';
+      console.log('Card added to deck:', card);
     } else {
       this.errorMessage = `You can only add "${card.name}" up to 3 times.`;
+      console.log('Card not added: limit reached');
     }
   }
+  
 
   // Remove card from deck
   removeFromDeck(card: Card): void {

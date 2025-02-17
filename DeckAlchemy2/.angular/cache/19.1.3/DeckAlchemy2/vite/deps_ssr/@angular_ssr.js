@@ -1,15 +1,15 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  Router,
-  loadChildren
-} from "./chunk-QVOWC5HD.js";
-import {
   INITIAL_CONFIG,
   SERVER_CONTEXT,
   platformServer,
   renderApplication,
   renderModule
 } from "./chunk-P32N6VIW.js";
+import {
+  Router,
+  loadChildren
+} from "./chunk-QVOWC5HD.js";
 import "./chunk-2O5GPQPM.js";
 import "./chunk-7PWL2GXV.js";
 import {

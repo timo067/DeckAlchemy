@@ -19,7 +19,7 @@
 /* === CARD SECTIONS === */
 .all-cards, .deck {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;  
   justify-content: center;
   gap: 15px;
   margin-top: 20px;
@@ -171,19 +171,19 @@
 /* === DECK NAME INPUT & SEARCH BAR (Updated for Consistency) === */
 .deck-creation input,
 .search-bar input {
-  padding: 12px;
-  width: 350px;
-  font-size: 18px;
-  border: 2px solid #FFD700;
-  border-radius: 8px;
-  outline: none;
-  background: rgba(30, 30, 30, 0.95);
-  color: #FFD700;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-align: center;
-  transition: all 0.3s ease-in-out;
-  box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.7);
+    padding: 12px;
+    width: 350px;
+    font-size: 18px;
+    border: 2px solid #FFD700;
+    border-radius: 8px;
+    outline: none;
+    background: rgba(30, 30, 30, 0.95);
+    color: #FFD700;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.7);
 }
 
 .deck-creation input:focus,
@@ -330,6 +330,21 @@ select option {
   }
 }
 
+.deck {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  height: 100vh; /* Full screen height */
+  width: 100vw; /* Full screen width */
+  overflow-y: auto;
+  border: 2px solid #FFD700;
+  padding: 15px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.8);
+}
+
 h2,h1{
   color: white;
 }
@@ -369,39 +384,6 @@ li{
   font-size:20px;
 }
 
-/* Home and Card Search Buttons Wrapper */
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px; /* Adjust the space between the buttons */
-  margin-bottom: 20px;
-}
-
-/* Home Button */
-.home-button {
-  padding: 12px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #FFD700;
-  background: linear-gradient(45deg, #8B0000, #FF4500);
-  border: 2px solid #FFD700;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.home-button:hover {
-  background: linear-gradient(45deg, #FF4500, #FFD700);
-  transform: scale(1.1);
-}
-
-.home-button:active {
-  background: linear-gradient(45deg, #FFD700, #FF4500);
-  transform: scale(0.95);
-}
-
-/* Card Search Button */
 .card-search-button {
   padding: 12px 20px;
   font-size: 16px;
@@ -420,6 +402,28 @@ li{
 }
 
 .card-search-button:active {
+  background: linear-gradient(45deg, #FFD700, #FF4500);
+  transform: scale(0.95);
+}
+
+.home-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFD700;
+  background: linear-gradient(45deg, #8B0000, #FF4500);
+  border: 2px solid #FFD700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.home-button:hover {
+  background: linear-gradient(45deg, #FF4500, #FFD700);
+  transform: scale(1.05);
+}
+
+.home-button:active {
   background: linear-gradient(45deg, #FFD700, #FF4500);
   transform: scale(0.95);
 }

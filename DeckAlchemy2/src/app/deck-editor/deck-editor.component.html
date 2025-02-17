@@ -1,5 +1,5 @@
 <div class="deck-editor-container">
-  <!-- Home and Card Search Buttons Wrapper -->
+  <!-- Home and Card Search Buttons -->
   <div class="button-container">
     <button class="home-button" (click)="goHome()">Home</button>
     <button class="card-search-button" (click)="goToCardSearch()">Go to Card Search</button>
@@ -18,8 +18,8 @@
   <div *ngIf="decks.length > 0">
     <h2>Select a Deck</h2>
     <ul>
-      <li *ngFor="let deck of decks">
-        <span (click)="selectedDeck = deck">{{ deck.name }}</span>
+      <li *ngFor="let deck of decks" [class.selected]="deck === selectedDeck">
+        <span (click)="selectDeckFromList(deck)">{{ deck.name }}</span>
         <button class="delete-deck-button" (click)="deleteDeck(deck)">Delete</button>
       </li>
     </ul>
@@ -36,16 +36,32 @@
     <div *ngIf="error" class="error-message">{{ error }}</div>
     <div *ngIf="loading" class="loading">Loading...</div>
 
-    <!-- All Cards -->
-    <div class="all-cards">
-      <h2>All Cards</h2>
-      <div *ngIf="allCards.length === 0 && !loading && !error">
-        No cards available. Use the search bar to find cards.
+    <!-- Deck and All Cards side by side -->
+    <div class="deck-sections">
+      <!-- All Cards -->
+      <div class="all-cards">
+        <h2>All Cards</h2>
+        <div *ngIf="allCards.length === 0 && !loading && !error">
+          No cards available. Use the search bar to find cards.
+        </div>
+        <div *ngFor="let card of allCards" class="card">
+          <img [src]="card.imageUrl" alt="{{ card.name }}" />
+          <h3>{{ card.name }}</h3>
+          <button (click)="addToDeck(card)">Add to Deck</button>
+        </div>
       </div>
-      <div *ngFor="let card of allCards" class="card">
-        <img [src]="card.imageUrl" alt="{{ card.name }}" />
-        <h3>{{ card.name }}</h3>
-        <button (click)="addToDeck(card)">Add to Deck</button>
+
+      <!-- Deck Section -->
+      <div *ngIf="selectedDeck" class="deck">
+        <h2>Your Deck</h2>
+        <div *ngIf="selectedDeck.cards.length === 0">
+          Your deck is empty. Add cards from the search section.
+        </div>
+        <div *ngFor="let card of selectedDeck.cards" class="card">
+          <img [src]="card.imageUrl" alt="{{ card.name }}" />
+          <h3>{{ card.name }}</h3>
+          <button (click)="removeFromDeck(card)">Remove</button>
+        </div>
       </div>
     </div>
   </div>
