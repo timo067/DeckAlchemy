@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+// Assume you have an AuthService that manages logged-in users
+import { AuthService } from '../services/auth.service'; // Adjust the import path accordingly
 
 @Component({
   selector: 'app-default',
@@ -10,7 +12,12 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class DefaultComponent {
-  constructor(private router: Router) {}
+  loggedInAccounts: string[] = [];
+
+  constructor(private router: Router, private authService: AuthService) {
+    // Fetch logged-in accounts from AuthService or similar
+    this.loggedInAccounts = this.authService.getLoggedInAccounts();
+  }
 
   navigateToDeckEditor() {
     this.router.navigate(['/deck-editor']);

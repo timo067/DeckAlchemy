@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 @Injectable({
@@ -10,7 +10,6 @@ export class FirebaseService {
   private auth;
 
   constructor() {
-    // Your Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDTyTJCU7CI0mzyiXMEd_QEmHfOLfzccqk",
       authDomain: "deckalchemy-382dd.firebaseapp.com",
@@ -20,25 +19,32 @@ export class FirebaseService {
       appId: "1:850541189614:web:297645fafea6367021d6ff"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-
-    // Initialize Firebase Authentication and Firestore
     this.auth = getAuth(app);
     getFirestore(app);
   }
 
   // Register a new user
-  register(email: string, password: string) {
-    return createUserWithEmailAndPassword(this.auth, email, password);
-  }
+  register(email: string, password: string, username: string) {
+    return createUserWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        return updateProfile(user, { displayName: username }); // Set displayName as username
+      });
+  }  
 
   // Log in with email and password
   login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  // Logout function (optional)
+  // Get current logged-in user's username
+  getUsername() {
+    const user = this.auth.currentUser;
+    return user ? user.displayName : null;  // This gets the username if logged in
+  }  
+
+  // Logout function
   logout() {
     return this.auth.signOut();
   }

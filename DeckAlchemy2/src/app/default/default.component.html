@@ -1,11 +1,9 @@
 <div class="default-container">
   <h2>Welcome to DeckAlchemy</h2>
   <div class="logs">
-    <h3>Logs</h3>
+    <h3>Logged-in Accounts</h3>
     <ul>
-      <li>Log entry 1</li>
-      <li>Log entry 2</li>
-      <li>Log entry 3</li>
+      <li *ngFor="let account of loggedInAccounts">{{ account }}</li>
     </ul>
   </div>
   <div class="buttons">

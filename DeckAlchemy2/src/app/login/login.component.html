@@ -14,6 +14,11 @@
       </div>
 
       <div *ngIf="isRegistering">
+        <label for="username">Username:</label>
+        <input type="text" id="username" [(ngModel)]="username" name="username" required />
+      </div>
+
+      <div *ngIf="isRegistering">
         <label for="confirmPassword">Confirm Password:</label>
         <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required />
       </div>
@@ -31,5 +36,9 @@
     <p *ngIf="isRegistering">
       Already have an account? <a (click)="toggleRegister()">Login here</a>
     </p>
+
+    <div *ngIf="loggedInUsername">
+      <h3>Welcome, {{ loggedInUsername }}!</h3>
+    </div>
   </div>
 </div>
